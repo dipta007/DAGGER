@@ -1,0 +1,65 @@
+### Example 1:
+Question:
+টুলুজের কাছে চার্লস্টনের থেকে দুইগুণ বেশি ভেড়া রয়েছে। পাসাডেনার কাছে ১০০টি ভেড়া রয়েছে। চার্লস্টনের কাছে সিয়াটলের থেকে 4গুণ বেশি ভেড়া রয়েছে। চার্লস্টনের পাশের খামারে আরও ৪০টি ভেড়া পালন করা হয়। যদি সিয়াটলের কাছে 20টি ভেড়া থাকে তাহলে টুলুজ, চার্লস্টন এবং সিয়াটলের কাছে সর্বমোট কতগুলি করে ভেড়া আছে?। সিয়াটলের খামারে দুইটি সাদা ভেড়া রয়েছে যারা খুব বিখ্যাত।
+
+Output:
+```json
+{{
+  "nodes": [
+    {{"id": "n1", "op": "const", "val": 20, "distractor": false, "label": "সিয়াটলের ভেড়া"}},
+    {{"id": "n2", "op": "const", "val": 4, "distractor": false, "label": "গুণক (চার্লস্টন)"}},
+    {{"id": "n3", "op": "mul", "args": ["n1", "n2"], "distractor": false, "label": "চার্লস্টনের ভেড়া"}},
+    {{"id": "n4", "op": "const", "val": 2, "distractor": false, "label": "গুণক (টুলুজ)"}},
+    {{"id": "n5", "op": "mul", "args": ["n3", "n4"], "distractor": false, "label": "টুলুজের ভেড়া"}},
+    {{"id": "n6", "op": "const", "val": 100, "distractor": true, "label": "পাসাডেনার ভেড়া"}},
+    {{"id": "n7", "op": "const", "val": 40, "distractor": true, "label": "চার্লস্টনের পাশের খামারের ভেড়া"}},
+    {{"id": "n8", "op": "const", "val": 2, "distractor": true, "label": "সিয়াটলের সাদা ভেড়া"}},
+    {{"id": "total", "op": "sum", "args": ["n1", "n3", "n5"], "distractor": false, "label": "মোট ভেড়া (সিয়াটল + চার্লস্টন + টুলুজ)"}},
+    {{"id": "final_result", "op": "identity", "args": ["total"], "distractor": false, "label": "চূড়ান্ত উত্তর"}}
+  ]
+}}
+```
+
+### Example 2:
+Question:
+একটি কাঠের সেতু 5000 পাউন্ডের বেশি ভার বহন করতে পারে না। ঐ সেতুটির ওপর দিয়ে 15 পাউন্ড ওজনের একইরকম বাক্সে ভরা একটি ডেলিভারি ট্রাক পার হয়ে যাবে। প্রতিটি বাক্সে ২০টি বই থাকে। গাড়ির চালক ও খালি ট্রাকটির মিলিত ওজন হল 3755 পাউন্ড। খালি ট্রাকটি ৬০ লিটার জ্বালানি খরচে ১০০ কিমি যেতে পারে। সেতুর ওজন সীমা অতিক্রম না করে সর্বোচ্চ কতগুলি বাক্স ট্রাকে চাপানো যেতে পারে?
+
+Output:
+```json
+{{
+  "nodes": [
+    {{"id": "n1", "op": "const", "val": 5000, "distractor": false, "label": "সেতুর সর্বোচ্চ ভার"}},
+    {{"id": "n2", "op": "const", "val": 3755, "distractor": false, "label": "ট্রাক ও চালকের ওজন"}},
+    {{"id": "n3", "op": "const", "val": 15, "distractor": false, "label": "প্রতিটি বাক্সের ওজন"}},
+    {{"id": "n4", "op": "const", "val": 20, "distractor": true, "label": "প্রতিটি বাক্সে বই"}},
+    {{"id": "n5", "op": "const", "val": 60, "distractor": true, "label": "জ্বালানি (লিটার)"}},
+    {{"id": "n6", "op": "const", "val": 100, "distractor": true, "label": "দূরত্ব (কিমি)"}},
+    {{"id": "available_weight", "op": "sub", "args": ["n1", "n2"], "distractor": false, "label": "বাক্সের জন্য উপলব্ধ ওজন"}},
+    {{"id": "max_boxes_raw", "op": "div", "args": ["available_weight", "n3"], "distractor": false, "label": "সর্বোচ্চ বাক্স (দশমিক)"}},
+    {{"id": "max_boxes", "op": "floor", "args": ["max_boxes_raw"], "distractor": false, "label": "সর্বোচ্চ বাক্স (পূর্ণসংখ্যা)"}},
+    {{"id": "final_result", "op": "identity", "args": ["max_boxes"], "distractor": false, "label": "চূড়ান্ত উত্তর"}}
+  ]
+}}
+```
+
+### Example 3:
+Question:
+অ্যারনের থেকে সিওভানের কাছে 2টি কম রত্ন আছে। সিওভান ভাবছিল আরও ৩টি রত্ন অ্যারনের কাছ থেকে নেবে, কিন্তু পরে আর নেয়নি। রেমন্ডের রত্নের অর্ধেকের থেকে 5টি বেশি রত্ন অ্যারনের কাছে আছে। যদি রেমন্ড তার কিছু রত্ন সিওভানকে দিত, তাহলে সিওভানের রত্নের সংখ্যা বাড়ত, কিন্তু সে দেয়নি। যদি রেমন্ডের কাছে 40টি রত্ন থাকে, তাহলে সিওভানের কাছে কটি রত্ন আছে?। অ্যারন সিওভানকে একটি রত্ন ধার দিতে চেয়েছিল, কিন্তু পরে সিদ্ধান্ত বদলিয়ে দিল না।
+
+Output:
+```json
+{{
+  "nodes": [
+    {{"id": "n1", "op": "const", "val": 40, "distractor": false, "label": "রেমন্ডের রত্ন"}},
+    {{"id": "n2", "op": "const", "val": 2, "distractor": false, "label": "ভাগফল"}},
+    {{"id": "n3", "op": "div", "args": ["n1", "n2"], "distractor": false, "label": "রেমন্ডের অর্ধেক"}},
+    {{"id": "n4", "op": "const", "val": 5, "distractor": false, "label": "অতিরিক্ত রত্ন"}},
+    {{"id": "aaron_gems", "op": "add", "args": ["n3", "n4"], "distractor": false, "label": "অ্যারনের রত্ন"}},
+    {{"id": "n5", "op": "const", "val": 2, "distractor": false, "label": "সিওভানের কম রত্ন"}},
+    {{"id": "n6", "op": "const", "val": 3, "distractor": true, "label": "সিওভান নিতে চেয়েছিল (কিন্তু নেয়নি)"}},
+    {{"id": "n7", "op": "const", "val": 1, "distractor": true, "label": "অ্যারন ধার দিতে চেয়েছিল (কিন্তু দেয়নি)"}},
+    {{"id": "siobhan_gems", "op": "sub", "args": ["aaron_gems", "n5"], "distractor": false, "label": "সিওভানের রত্ন"}},
+    {{"id": "final_result", "op": "identity", "args": ["siobhan_gems"], "distractor": false, "label": "চূড়ান্ত উত্তর"}}
+  ]
+}}
+```
