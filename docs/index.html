@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="DAGGER: Distractor-Aware Graph Generation for Executable Reasoning in Math Problems">
+  <meta name="description" content="We present DAGGER, a framework that reformulates mathematical reasoning as computational graph generation with explicit distractor modeling. Achieves 89% fewer tokens than reasoning models while maintaining comparable accuracy.">
+  <meta name="keywords" content="mathematical reasoning, computational graphs, distractor detection, Bangla, low-resource language, NLP, deep learning, LLM">
+  <meta name="author" content="Anonymous">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DAGGER">
+  <meta property="og:title" content="DAGGER: Distractor-Aware Graph Generation for Executable Reasoning">
+  <meta property="og:description" content="Computational graph generation for robust mathematical reasoning with explicit distractor modeling. 89% fewer tokens than reasoning models.">
+  <meta property="og:url" content="https://dipta007.github.io/dagger">
+  <meta property="og:image" content="https://dipta007.github.io/DAGGER/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DAGGER - Distractor-Aware Graph Generation">
+  <meta property="article:published_time" content="2025-01-01T00:00:00.000Z">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Mathematical Reasoning">
+  <meta property="article:tag" content="Computational Graphs">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DAGGER: Distractor-Aware Graph Generation for Math Reasoning">
+  <meta name="twitter:description" content="Computational graph generation with distractor detection. 89% fewer tokens, comparable accuracy to reasoning models.">
+  <meta property="twitter:image" content="https://dipta007.github.io/DAGGER/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="DAGGER - Distractor-Aware Graph Generation">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="DAGGER: Distractor-Aware Graph Generation for Executable Reasoning in Math Problems">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_conference_title" content="arXiv">
+  <meta name="citation_pdf_url" content="https://arxiv.org/abs/XXXX.XXXXX">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="msapplication-TileColor" content="#3b82f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>DAGGER: Distractor-Aware Graph Generation for Executable Reasoning</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "DAGGER: Distractor-Aware Graph Generation for Executable Reasoning in Math Problems",
+    "description": "We present DAGGER, a framework that reformulates mathematical reasoning as computational graph generation with explicit distractor modeling.",
+    "datePublished": "2025",
+    "url": "https://dipta007.github.io/dagger",
+    "keywords": ["Mathematical Reasoning", "Computational Graphs", "Distractor Detection", "LLM"],
+    "isAccessibleForFree": true
+  }
+  </script>
+
+  <style>
+    .bengali-text {
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+    .highlight-box {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+    .highlight-box-green {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+    .stat-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      height: 100%;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #3b82f6;
+    }
+    .stat-number-green {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #10b981;
+    }
+    .stat-label {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    @media screen and (max-width: 768px) {
+      .stat-card {
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .stat-number, .stat-number-green {
+        font-size: 1.8rem;
+      }
+      .stat-label {
+        font-size: 0.8rem;
+      }
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      min-width: 500px;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .comparison-table th {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+    .comparison-table tr:hover {
+      background: #f8fafc;
+    }
+    .comparison-table a {
+      color: #2563eb;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .comparison-table a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 768px) {
+      .comparison-table {
+        min-width: 400px;
+        font-size: 0.85rem;
+      }
+      .comparison-table th, .comparison-table td {
+        padding: 0.5rem 0.75rem;
+      }
+    }
+    .model-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .badge-green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .badge-blue {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .badge-red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .badge-yellow {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .badge-purple {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+    .method-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .step-number {
+      background: #3b82f6;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .graph-box {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 12px;
+      font-family: 'Fira Code', monospace;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+    .graph-key {
+      color: #7dd3fc;
+    }
+    .graph-value {
+      color: #fbbf24;
+    }
+    .graph-string {
+      color: #34d399;
+    }
+    .graph-bool {
+      color: #f472b6;
+    }
+    .graph-distractor {
+      color: #ef4444;
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+    .distractor-type-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #e2e8f0;
+      height: 100%;
+    }
+    .distractor-type-card h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              DAGGER: Distractor-Aware Graph Generation for Executable Reasoning in Math Problems
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=Fd1-G4YAAAAJ&hl=en" target="_blank">Zabir Al Nazi</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://roydipta.com" target="_blank">Shubhashis Roy Dipta</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sudiptakar.info" target="_blank">Sudipta Kar</a><sup>3</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of California, Riverside</span>
+              <span class="author-block"><sup>2</sup>University of Maryland, Baltimore County</span>
+              <span class="author-block"><sup>3</sup>Oracle Health AI</span>
+              <br>
+              <span class="author-block" style="font-weight: 600; color: #3b82f6;">arXiv Preprint</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/dipta007/dagger" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+              </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://huggingface.co/collections/dipta007/dagger" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span>🤗 Models</span>
+            </a>
+          </span>
+
+          <span class="link-block">
+            <a href="https://huggingface.co/datasets/dipta007/DistractMath-Bn" target="_blank"
+            class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <i class="fas fa-database"></i>
+            </span>
+            <span>DistractMath-BN</span>
+          </a>
+        </span>
+
+        <span class="link-block">
+          <a href="https://huggingface.co/datasets/dipta007/dagger" target="_blank"
+          class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+            <i class="fas fa-database"></i>
+          </span>
+          <span>Training Data</span>
+        </a>
+      </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Key Results -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <h2 class="title is-3 has-text-centered">Key Results</h2>
+    <div class="container is-max-desktop">
+      <div class="columns is-multiline is-centered is-mobile">
+        <div class="column is-6-mobile is-6-tablet is-3-desktop">
+          <div class="stat-card">
+            <div class="stat-number">89%</div>
+            <div class="stat-label">Fewer Tokens vs. Reasoning Models</div>
+          </div>
+        </div>
+        <div class="column is-6-mobile is-6-tablet is-3-desktop">
+          <div class="stat-card">
+            <div class="stat-number">69.4%</div>
+            <div class="stat-label">Weighted Avg. Accuracy</div>
+          </div>
+        </div>
+        <div class="column is-6-mobile is-6-tablet is-3-desktop">
+          <div class="stat-card">
+            <div class="stat-number-green">12-14</div>
+            <div class="stat-label">pts Drop (vs. 18-41 for CoT)</div>
+          </div>
+        </div>
+        <div class="column is-6-mobile is-6-tablet is-3-desktop">
+          <div class="stat-card">
+            <div class="stat-number-green">3,685</div>
+            <div class="stat-label">Distractor-Augmented Problems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser Figure -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="has-text-centered">
+        <img src="static/images/overview.png" alt="DAGGER Overview: Instead of Chain-of-Thought reasoning, DAGGER generates executable computational graphs with explicit distractor node modeling." style="max-width: 50%; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+        <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+          <strong>Overview:</strong> DAGGER reformulates math word problems as executable computational graphs. Each node represents an operation or value, with explicit <code>distractor: true/false</code> annotations to identify irrelevant information.
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Chain-of-Thought (CoT) prompting is widely adopted for mathematical problem solving, including in low-resource languages, yet its behavior under irrelevant context remains underexplored. We introduce <strong>DistractMath-BN</strong>, a Bangla benchmark that augments MGSM and MSVAMP with semantically coherent but computationally irrelevant information.
+          </p>
+          <p>
+            Evaluating seven models (3B-12B parameters), we observe substantial performance degradation under distractors: standard models drop up to <strong>41 points</strong>, while reasoning-specialized models decline <strong>14-20 points</strong> despite consuming 5x more tokens.
+          </p>
+          <p>
+            We propose <strong>DAGGER</strong> (Distractor-Aware Graph Generation for Executable Reasoning), which reformulates mathematical problem solving as executable computational graph generation with dedicated modeling of distractor nodes. Fine-tuning Gemma-3 models using SFT followed by GRPO achieves comparable weighted accuracy on augmented benchmarks while using <strong>89% fewer tokens</strong> than reasoning models. Importantly, this robustness emerges without explicit training on distractor-augmented examples.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem: Distractors -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Problem: Distractors Break Mathematical Reasoning</h2>
+    <div class="content">
+      <p class="has-text-centered" style="margin-bottom: 2rem;">
+        We identify three types of distractors that cause significant performance degradation in LLMs:
+      </p>
+
+      <div class="columns">
+        <div class="column">
+          <div class="distractor-type-card">
+            <h4><span class="model-badge badge-red">RED</span> Related Entity Distractor</h4>
+            <p style="color: #64748b; font-size: 0.9rem;">Numerical info about same object type but different entities</p>
+            <div style="background: #fef2f2; padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+              <p class="bengali-text" style="font-size: 0.9rem;">"তার বোন বুধবার <strong style="color: #ef4444;">১২ জন</strong> ছেলেমেয়ের সঙ্গে লুকোচুরি খেলেছিল।"</p>
+              <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">"Her sister played hide-and-seek with <strong>12 children</strong> on Wednesday."</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="distractor-type-card">
+            <h4><span class="model-badge badge-yellow">OAD</span> Orthogonal Attribute Distractor</h4>
+            <p style="color: #64748b; font-size: 0.9rem;">Properties in different dimensions than queried attribute</p>
+            <div style="background: #fffbeb; padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+              <p class="bengali-text" style="font-size: 0.9rem;">"সোমবার খেলতে <strong style="color: #d97706;">১ ঘণ্টা</strong> সময় লেগেছিল।"</p>
+              <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">"It took <strong>1 hour</strong> to play on Monday." (when question asks about count)</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="distractor-type-card">
+            <h4><span class="model-badge badge-purple">NEED</span> Null-Effect Event Distractor</h4>
+            <p style="color: #64748b; font-size: 0.9rem;">Actions with zero net impact (planned but not executed)</p>
+            <div style="background: #faf5ff; padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+              <p class="bengali-text" style="font-size: 0.9rem;">"রাজু <strong style="color: #7c3aed;">১০০০ টি দিতে রাজি হল</strong>, কিন্তু পরে আর দিলনা।"</p>
+              <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">"Raju <strong>agreed to give 1000</strong>, but later didn't."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top: 2rem;">
+        <div class="columns is-vcentered">
+          <div class="column is-8">
+            <h4 style="color: white; margin-bottom: 0.5rem;">Performance Degradation Under Distractors</h4>
+            <p style="opacity: 0.9;">Standard CoT models drop up to <strong>41 points</strong> accuracy. Even reasoning models with 5x more tokens drop <strong>14-20 points</strong>.</p>
+          </div>
+          <div class="column is-4 has-text-centered">
+            <div style="font-size: 3rem; font-weight: 800;">-41 pts</div>
+            <div style="font-size: 0.9rem; opacity: 0.8;">Worst-case CoT drop</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solution: Computational Graphs -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Our Solution: Computational Graph Generation</h2>
+
+    <div class="columns" style="margin-top: 2rem;">
+      <div class="column is-6">
+        <h3 class="title is-4">Why Graphs?</h3>
+        <p>Instead of free-form Chain-of-Thought reasoning, DAGGER generates structured computational graphs:</p>
+
+        <div class="method-step">
+          <div class="step-number">1</div>
+          <div>
+            <strong>Structured Output:</strong> JSON graphs are deterministically executable - no ambiguity in reasoning steps
+          </div>
+        </div>
+
+        <div class="method-step">
+          <div class="step-number">2</div>
+          <div>
+            <strong>Explicit Distractor Modeling:</strong> Each node has a <code>distractor</code> field to mark irrelevant information
+          </div>
+        </div>
+
+        <div class="method-step">
+          <div class="step-number">3</div>
+          <div>
+            <strong>Verifiable Execution:</strong> Graphs can be executed to verify correctness, enabling RL with execution-based rewards
+          </div>
+        </div>
+
+        <div class="method-step">
+          <div class="step-number">4</div>
+          <div>
+            <strong>Token Efficiency:</strong> Compact graph representation uses 89% fewer tokens than verbose reasoning chains
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6">
+        <h3 class="title is-4">Graph Example</h3>
+        <div class="graph-box">
+<pre>{
+  <span class="graph-key">"nodes"</span>: [
+    {<span class="graph-key">"id"</span>: <span class="graph-string">"n1"</span>, <span class="graph-key">"op"</span>: <span class="graph-string">"const"</span>, <span class="graph-key">"val"</span>: <span class="graph-value">100</span>,
+     <span class="graph-key">"distractor"</span>: <span class="graph-bool">false</span>, <span class="graph-key">"label"</span>: <span class="graph-string">"মিনার কলম"</span>},
+    <span class="graph-distractor">{<span class="graph-key">"id"</span>: <span class="graph-string">"n2"</span>, <span class="graph-key">"op"</span>: <span class="graph-string">"const"</span>, <span class="graph-key">"val"</span>: <span class="graph-value">50</span>,
+     <span class="graph-key">"distractor"</span>: <span class="graph-bool">true</span>, <span class="graph-key">"label"</span>: <span class="graph-string">"রাজুর কলম"</span>},</span>
+    {<span class="graph-key">"id"</span>: <span class="graph-string">"n3"</span>, <span class="graph-key">"op"</span>: <span class="graph-string">"const"</span>, <span class="graph-key">"val"</span>: <span class="graph-value">5</span>,
+     <span class="graph-key">"distractor"</span>: <span class="graph-bool">false</span>, <span class="graph-key">"label"</span>: <span class="graph-string">"কলমের দাম"</span>},
+    {<span class="graph-key">"id"</span>: <span class="graph-string">"total"</span>, <span class="graph-key">"op"</span>: <span class="graph-string">"mul"</span>,
+     <span class="graph-key">"args"</span>: [<span class="graph-string">"n1"</span>, <span class="graph-string">"n3"</span>], <span class="graph-key">"distractor"</span>: <span class="graph-bool">false</span>},
+    {<span class="graph-key">"id"</span>: <span class="graph-string">"final_result"</span>, <span class="graph-key">"op"</span>: <span class="graph-string">"identity"</span>,
+     <span class="graph-key">"args"</span>: [<span class="graph-string">"total"</span>], <span class="graph-key">"distractor"</span>: <span class="graph-bool">false</span>}
+  ]
+}</pre>
+        </div>
+        <p style="margin-top: 0.5rem; color: #64748b; font-size: 0.9rem;">
+          <i class="fas fa-info-circle"></i> Node <code>n2</code> (Raju's pens) is marked as distractor and excluded from computation path.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Training Pipeline -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Training Pipeline: SFT + GRPO</h2>
+
+    <div class="columns" style="margin-top: 2rem;">
+      <div class="column is-6">
+        <div class="highlight-box">
+          <h4 style="color: white; margin-bottom: 1rem;">Stage 1: Supervised Fine-Tuning (SFT)</h4>
+          <ul style="margin-left: 1rem;">
+            <li>Train on 3,000 verified graph examples</li>
+            <li>LoRA rank 64, 4 epochs</li>
+            <li>Establishes graph generation capability</li>
+          </ul>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="highlight-box-green">
+          <h4 style="color: white; margin-bottom: 1rem;">Stage 2: Group Relative Policy Optimization (GRPO)</h4>
+          <ul style="margin-left: 1rem;">
+            <li>8 generations per prompt</li>
+            <li>Multi-component reward:</li>
+            <ul style="margin-left: 1rem;">
+              <li>Format: +0.5 for valid JSON</li>
+              <li>Execution: +0.5 for successful run</li>
+              <li>Accuracy: +1.0 for correct answer</li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="has-text-centered" style="margin-top: 2rem;">
+      <p style="background: #f1f5f9; padding: 1rem; border-radius: 8px; display: inline-block;">
+        <strong>Key Finding:</strong> SFT initialization is critical for smaller models. 4B models without SFT show +18 point improvement when SFT is added before GRPO.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <div class="content">
+      <h3 class="title is-4">Main Comparison</h3>
+      <p>DAGGER achieves comparable accuracy to reasoning models while using 89% fewer tokens:</p>
+
+      <div class="table-responsive">
+        <table class="comparison-table">
+          <tr>
+            <th>Model</th>
+            <th>MGSM</th>
+            <th>MSVAMP</th>
+            <th>MGSM (+D)</th>
+            <th>MSVAMP (+D)</th>
+            <th>Tokens</th>
+          </tr>
+          <tr>
+            <td>Qwen 3-8B (Reasoning)</td>
+            <td>88.0</td>
+            <td>81.1</td>
+            <td>70.5</td>
+            <td>66.9</td>
+            <td>3,128</td>
+          </tr>
+          <tr>
+            <td>Gemma 3-12B (CoT)</td>
+            <td>76.8</td>
+            <td>72.3</td>
+            <td>54.3</td>
+            <td>48.7</td>
+            <td>599</td>
+          </tr>
+          <tr style="background: #dbeafe;">
+            <td><strong>DAGGER-12B</strong> <span class="model-badge badge-blue">Ours</span></td>
+            <td><strong>78.4</strong></td>
+            <td><strong>78.8</strong></td>
+            <td><strong>64.0</strong></td>
+            <td><strong>66.8</strong></td>
+            <td><strong>359</strong></td>
+          </tr>
+        </table>
+      </div>
+      <p style="color: #64748b; font-size: 0.9rem;">(+D) = with distractors</p>
+
+      <h3 class="title is-4" style="margin-top: 2rem;">Model Zoo</h3>
+      <p>All models available on HuggingFace:</p>
+
+      <div class="table-responsive">
+        <table class="comparison-table">
+          <tr>
+            <th>Model</th>
+            <th>Training</th>
+            <th>MGSM</th>
+            <th>MSVAMP</th>
+            <th>MGSM (+D)</th>
+            <th>MSVAMP (+D)</th>
+            <th>Weighted Avg</th>
+          </tr>
+          <tr style="background: #d1fae5;">
+            <td><a href="https://huggingface.co/dipta007/dagger-12B_SFT_GRPO" target="_blank">dagger-12B_SFT_GRPO</a> <span class="model-badge badge-green">Best</span></td>
+            <td>SFT → GRPO</td>
+            <td><strong>78.4</strong></td>
+            <td><strong>78.8</strong></td>
+            <td><strong>64.0</strong></td>
+            <td><strong>66.8</strong></td>
+            <td><strong>69.4</strong></td>
+          </tr>
+          <tr>
+            <td><a href="https://huggingface.co/dipta007/dagger-12B_SFT" target="_blank">dagger-12B_SFT</a></td>
+            <td>SFT only</td>
+            <td>70.0</td>
+            <td>76.8</td>
+            <td>56.8</td>
+            <td>65.4</td>
+            <td>66.7</td>
+          </tr>
+          <tr>
+            <td><a href="https://huggingface.co/dipta007/dagger-12B_GRPO" target="_blank">dagger-12B_GRPO</a></td>
+            <td>Base → GRPO</td>
+            <td>67.6</td>
+            <td>75.0</td>
+            <td>48.4</td>
+            <td>59.6</td>
+            <td>58.5</td>
+          </tr>
+          <tr>
+            <td><a href="https://huggingface.co/dipta007/dagger-4B_SFT_GRPO" target="_blank">dagger-4B_SFT_GRPO</a></td>
+            <td>SFT → GRPO</td>
+            <td>54.8</td>
+            <td>70.3</td>
+            <td>31.4</td>
+            <td>42.9</td>
+            <td>47.3</td>
+          </tr>
+          <tr>
+            <td><a href="https://huggingface.co/dipta007/dagger-4B_SFT" target="_blank">dagger-4B_SFT</a></td>
+            <td>SFT only</td>
+            <td>40.4</td>
+            <td>65.0</td>
+            <td>25.1</td>
+            <td>42.4</td>
+            <td>44.3</td>
+          </tr>
+          <tr>
+            <td><a href="https://huggingface.co/dipta007/dagger-4B_GRPO" target="_blank">dagger-4B_GRPO</a></td>
+            <td>Base → GRPO</td>
+            <td>29.2</td>
+            <td>57.1</td>
+            <td>13.1</td>
+            <td>29.3</td>
+            <td>29.0</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dataset -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Datasets</h2>
+
+    <div class="columns" style="margin-top: 2rem;">
+      <div class="column is-6">
+        <div class="highlight-box">
+          <h4 style="color: white; margin-bottom: 1rem;">DistractMath-BN (Evaluation)</h4>
+          <p style="opacity: 0.9; margin-bottom: 1rem;">Distractor-augmented benchmark for evaluating robustness</p>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: 700;">3,685</div>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Total Examples</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: 700;">3</div>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Distractor Types</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: 700;">2</div>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Source Datasets</div>
+            </div>
+          </div>
+          <a href="https://huggingface.co/datasets/dipta007/DistractMath-Bn" target="_blank" style="display: block; background: white; color: #3b82f6; padding: 0.75rem; border-radius: 8px; text-align: center; font-weight: 600; text-decoration: none;">
+            <i class="fas fa-download"></i> Download Benchmark
+          </a>
+        </div>
+      </div>
+
+      <div class="column is-6">
+        <div class="highlight-box-green">
+          <h4 style="color: white; margin-bottom: 1rem;">DAGGER Training Data</h4>
+          <p style="opacity: 0.9; margin-bottom: 1rem;">Verified computational graph annotations for training</p>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: 700;">3,000</div>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Training Examples</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: 700;">481</div>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Validation Examples</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: 700;">2</div>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Configs (SFT/GRPO)</div>
+            </div>
+          </div>
+          <a href="https://huggingface.co/datasets/dipta007/dagger" target="_blank" style="display: block; background: white; color: #10b981; padding: 0.75rem; border-radius: 8px; text-align: center; font-weight: 600; text-decoration: none;">
+            <i class="fas fa-download"></i> Download Training Data
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--BibTex citation -->
+<section class="section hero is-light" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="bibtex-header">
+      <h2 class="title">BibTeX</h2>
+      <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+        <i class="fas fa-copy"></i>
+        <span class="copy-text">Copy</span>
+      </button>
+    </div>
+    <pre id="bibtex-code"><code>will be updated</code></pre>
+  </div>
+</section>
+<!--End BibTex citation -->
+
+
+<footer class="footer">
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+          <br>
+          This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>
+
+</main>
+
+<!-- Default Statcounter code for dagger -->
+<script type="text/javascript">
+var sc_project=13197352;
+var sc_invisible=1;
+var sc_security="676f8d25";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/13197352/0/676f8d25/1/" alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+</body>
+</html>
